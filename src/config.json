@@ -1,0 +1,152 @@
+{
+    "macos": [
+        {
+            "path": "$HOME/.openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 用户数据目录"
+        },
+        {
+            "path": "$HOME/Library/Application Support/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw 应用支持"
+        },
+        {
+            "path": "$HOME/Library/Caches/com.openclaw.app",
+            "operation": "delete",
+            "description": "OpenClaw 缓存"
+        },
+        {
+            "path": "$HOME/Library/Preferences/com.openclaw.app.plist",
+            "operation": "delete",
+            "description": "OpenClaw 偏好设置"
+        },
+        {
+            "path": "$HOME/Library/Logs/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw 日志"
+        },
+        {
+            "path": "$HOME/Library/WebKit/com.openclaw.app",
+            "operation": "delete",
+            "description": "OpenClaw WebKit 数据"
+        },
+        {
+            "path": "$HOME/Library/Saved Application State/com.openclaw.app.savedState",
+            "operation": "delete",
+            "description": "OpenClaw 应用状态"
+        },
+        {
+            "path": "$HOME/Library/LaunchAgents/com.openclaw.*.plist",
+            "operation": "delete",
+            "description": "OpenClaw 用户启动项"
+        },
+        {
+            "path": "/Library/LaunchDaemons/com.openclaw.*.plist",
+            "operation": "delete",
+            "description": "OpenClaw 系统启动项",
+            "requireSudo": true
+        },
+        {
+            "path": "/Applications/OpenClaw.app",
+            "operation": "delete",
+            "description": "OpenClaw 应用程序",
+            "requireSudo": true
+        }
+    ],
+    "windows": [
+        {
+            "path": "$env:APPDATA/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw AppData 目录"
+        },
+        {
+            "path": "$env:LOCALAPPDATA/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw LocalAppData 目录"
+        },
+        {
+            "path": "$env:LOCALAPPDATA/Programs/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw 本地程序目录"
+        },
+        {
+            "path": "$env:PROGRAMFILES/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw Program Files 目录",
+            "requireAdmin": true
+        },
+        {
+            "path": "$env:PROGRAMFILES(x86)/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw Program Files (x86) 目录",
+            "requireAdmin": true
+        },
+        {
+            "path": "$env:USERPROFILE/.openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 用户主目录"
+        },
+        {
+            "path": "$env:APPDATA/Microsoft/Windows/Start Menu/Programs/OpenClaw",
+            "operation": "delete",
+            "description": "OpenClaw 开始菜单快捷方式"
+        }
+    ],
+    "linux": [
+        {
+            "path": "$HOME/.openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 用户数据目录"
+        },
+        {
+            "path": "$HOME/.config/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 配置目录"
+        },
+        {
+            "path": "$HOME/.local/share/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 数据目录"
+        },
+        {
+            "path": "$HOME/.cache/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 缓存目录"
+        },
+        {
+            "path": "$HOME/.local/share/applications/openclaw.desktop",
+            "operation": "delete",
+            "description": "OpenClaw 桌面入口"
+        },
+        {
+            "path": "/usr/share/applications/openclaw.desktop",
+            "operation": "delete",
+            "description": "OpenClaw 系统桌面入口",
+            "requireSudo": true
+        },
+        {
+            "path": "/opt/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 安装目录",
+            "requireSudo": true
+        },
+        {
+            "path": "/usr/local/bin/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 二进制链接",
+            "requireSudo": true
+        },
+        {
+            "path": "/usr/bin/openclaw",
+            "operation": "delete",
+            "description": "OpenClaw 系统二进制",
+            "requireSudo": true
+        },
+        {
+            "path": "/etc/systemd/system/openclaw*.service",
+            "operation": "delete",
+            "description": "OpenClaw systemd 服务",
+            "requireSudo": true
+        }
+    ]
+}

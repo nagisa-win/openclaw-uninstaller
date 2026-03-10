@@ -1,0 +1,38 @@
+{
+    "name": "@steven-y/openclaw-uninstaller",
+    "version": "1.0.0",
+    "description": "Complete uninstaller for OpenClaw across macOS, Windows, and Linux",
+    "type": "module",
+    "main": "src/index.js",
+    "bin": {
+        "openclaw-uninstaller": "src/index.js"
+    },
+    "files": [
+        "src/",
+        "scripts/"
+    ],
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "keywords": [
+        "openclaw",
+        "uninstaller",
+        "cleanup"
+    ],
+    "author": "渚酱",
+    "license": "MIT",
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nagisa-win/openclaw-uninstaller.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nagisa-win/openclaw-uninstaller/issues"
+    },
+    "homepage": "https://github.com/nagisa-win/openclaw-uninstaller#readme",
+    "publishConfig": {
+        "access": "public"
+    }
+}
