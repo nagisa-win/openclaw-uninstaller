@@ -1,0 +1,128 @@
+name: Publish to NPM
+
+on:
+    push:
+        branches:
+            - master
+            - main
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version bump type (major/minor/patch) or specific version (e.g., 1.2.3)'
+                required: false
+                default: 'patch'
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            id-token: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  registry-url: 'https://registry.npmjs.org'
+
+            - name: Configure Git
+              run: |
+                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "github-actions[bot]"
+
+            - name: Get current version
+              id: current_version
+              run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+            - name: Bump version
+              id: bump_version
+              run: |
+                  BUMP_TYPE="${{ github.event.inputs.version || 'patch' }}"
+
+                  # Check if it's a specific version or bump type
+                  if [[ "$BUMP_TYPE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                      # Specific version provided
+                      npm version "$BUMP_TYPE" --no-git-tag-version
+                  else
+                      # Bump type (major/minor/patch)
+                      npm version "$BUMP_TYPE" --no-git-tag-version
+                  fi
+
+                  NEW_VERSION=$(node -p "require('./package.json').version")
+                  echo "VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+            - name: Commit version bump
+              run: |
+                  git add package.json package-lock.json 2>/dev/null || git add package.json
+                  git commit -m "chore: bump version to v${{ steps.bump_version.outputs.VERSION }}" || echo "No changes to commit"
+                  git push
+
+            - name: Create Git Tag
+              run: |
+                  git tag -a "v${{ steps.bump_version.outputs.VERSION }}" -m "Release v${{ steps.bump_version.outputs.VERSION }}"
+                  git push origin "v${{ steps.bump_version.outputs.VERSION }}"
+
+            - name: Publish to npm
+              run: npm publish --provenance --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+
+            - name: Update README with version info
+              run: |
+                  VERSION="${{ steps.bump_version.outputs.VERSION }}"
+                  REPO="${{ github.repository }}"
+
+                  # Update version in README badges if needed
+                  sed -i "s|npm/v/[^)]*|npm/v/@steven-y/openclaw-uninstaller|g" README.md || true
+
+                  git add README.md || true
+                  git diff --quiet && git diff --staged --quiet || git commit -m "docs: update README for v${VERSION}"
+                  git push || true
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  tag_name: v${{ steps.bump_version.outputs.VERSION }}
+                  name: 🚀 Release v${{ steps.bump_version.outputs.VERSION }}
+                  body: |
+                      ## ✨ OpenClaw 卸载工具 v${{ steps.bump_version.outputs.VERSION }}
+
+                      ### 📦 安装使用
+
+                      **NPX（推荐）**
+                      ```bash
+                      npx @steven-y/openclaw-uninstaller
+                      ```
+
+                      **NPM 全局安装**
+                      ```bash
+                      npm install -g @steven-y/openclaw-uninstaller
+                      ```
+
+                      **Bash 一键卸载**
+                      ```bash
+                      curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/master/scripts/uninstall.sh | sh
+                      ```
+
+                      ---
+
+                      📄 [查看完整文档](https://github.com/${{ github.repository }}#readme)
+                  draft: false
+                  prerelease: false
+                  generate_release_notes: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Summary
+              run: |
+                  echo "## ✅ 发布成功！" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "- **版本**: v${{ steps.bump_version.outputs.VERSION }}" >> $GITHUB_STEP_SUMMARY
+                  echo "- **NPM**: https://www.npmjs.com/package/@steven-y/openclaw-uninstaller" >> $GITHUB_STEP_SUMMARY
+                  echo "- **GitHub Release**: https://github.com/${{ github.repository }}/releases/tag/v${{ steps.bump_version.outputs.VERSION }}" >> $GITHUB_STEP_SUMMARY
