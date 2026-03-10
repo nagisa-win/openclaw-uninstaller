@@ -8,7 +8,7 @@
 
 <p align="center">
     <a href="https://www.npmjs.com/package/@steven-y/openclaw-uninstaller">
-        <img src="https://img.shields.io/npm/v/@steven-y/openclaw-uninstaller.svg?style=flat-square&logo=npm" alt="npm version"/>
+        <img src="https://img.shields.io/npm/v/@steven-y/openclaw-uninstaller
     </a>
     <a href="https://www.npmjs.com/package/@steven-y/openclaw-uninstaller">
         <img src="https://img.shields.io/npm/dm/@steven-y/openclaw-uninstaller.svg?style=flat-square&logo=npm" alt="npm downloads"/>
