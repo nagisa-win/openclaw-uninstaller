@@ -451,19 +451,13 @@ export class Uninstaller {
      */
     printHeader() {
         console.log(
-            `\n${colors.bold}${colors.cyan}╔══════════════════════════════════════════════════╗${colors.reset}`
+            `\n${colors.bold}${colors.cyan}════════════════════════════════════════════════════${colors.reset}`
         );
         console.log(
-            `${colors.bold}${colors.cyan}║${colors.reset}                                                  ${colors.bold}${colors.cyan}║${colors.reset}`
+            `${colors.bold}${colors.cyan}  ${colors.blue}🦀 OpenClaw 卸载工具 ${messages.version}${colors.reset}`
         );
         console.log(
-            `${colors.bold}${colors.cyan}║${colors.reset}      ${colors.bold}${colors.blue}🦀 OpenClaw 卸载工具 ${messages.version}${colors.reset}      ${colors.bold}${colors.cyan}║${colors.reset}`
-        );
-        console.log(
-            `${colors.bold}${colors.cyan}║${colors.reset}                                                  ${colors.bold}${colors.cyan}║${colors.reset}`
-        );
-        console.log(
-            `${colors.bold}${colors.cyan}╚══════════════════════════════════════════════════╝${colors.reset}\n`
+            `${colors.bold}${colors.cyan}════════════════════════════════════════════════════${colors.reset}\n`
         );
         console.log(`${colors.bold}${messages.platform}:${colors.reset} ${colors.green}${this.platform}${colors.reset}`);
         console.log(`${colors.bold}${messages.architecture}:${colors.reset} ${colors.green}${os.arch()}${colors.reset}`);
@@ -475,13 +469,13 @@ export class Uninstaller {
      */
     printSummary() {
         console.log(
-            `\n${colors.bold}${colors.cyan}╔══════════════════════════════════════════════════╗${colors.reset}`
+            `\n${colors.bold}${colors.cyan}════════════════════════════════════════════════════${colors.reset}`
         );
         console.log(
-            `${colors.bold}${colors.cyan}║${colors.reset}              ${colors.bold}📊 ${messages.summary}${colors.reset}              ${colors.bold}${colors.cyan}║${colors.reset}`
+            `${colors.bold}${colors.cyan}  📊 ${messages.summary}${colors.reset}`
         );
         console.log(
-            `${colors.bold}${colors.cyan}╚══════════════════════════════════════════════════╝${colors.reset}\n`
+            `${colors.bold}${colors.cyan}════════════════════════════════════════════════════${colors.reset}\n`
         );
 
         if (this.deletedItems.length > 0) {
