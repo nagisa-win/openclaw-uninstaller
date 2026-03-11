@@ -64,11 +64,9 @@ print_msg() {
 
 # 打印头部
 print_header() {
-    print_msg "\n${BOLD}${CYAN}╔══════════════════════════════════════════════════╗${RESET}"
-    print_msg "${BOLD}${CYAN}║${RESET}                                                  ${BOLD}${CYAN}║${RESET}"
-    print_msg "${BOLD}${CYAN}║${RESET}      ${BOLD}${BLUE}🦀 ${MSG_HEADER} ${MSG_VERSION}${RESET}      ${BOLD}${CYAN}║${RESET}"
-    print_msg "${BOLD}${CYAN}║${RESET}                                                  ${BOLD}${CYAN}║${RESET}"
-    print_msg "${BOLD}${CYAN}╚══════════════════════════════════════════════════╝${RESET}\n"
+    print_msg "\n${BOLD}${CYAN}════════════════════════════════════════════════════${RESET}"
+    print_msg "${BOLD}${CYAN}  ${BLUE}🦀 ${MSG_HEADER} ${MSG_VERSION}${RESET}"
+    print_msg "${BOLD}${CYAN}════════════════════════════════════════════════════${RESET}\n"
     print_msg "${BOLD}${MSG_PLATFORM}:${RESET} ${GREEN}${PLATFORM}${RESET}"
     print_msg "${BOLD}${MSG_ARCH}:${RESET} ${GREEN}$(uname -m)${RESET}"
     print_msg "${BOLD}${MSG_HOME}:${RESET} ${GREEN}${HOME}${RESET}\n"
@@ -258,9 +256,9 @@ confirm() {
 
 # 打印摘要
 print_summary() {
-    print_msg "\n${BOLD}${CYAN}╔══════════════════════════════════════════════════╗${RESET}"
-    print_msg "${BOLD}${CYAN}║${RESET}              ${BOLD}📊 ${MSG_SUMMARY}${RESET}              ${BOLD}${CYAN}║${RESET}"
-    print_msg "${BOLD}${CYAN}╚══════════════════════════════════════════════════╝${RESET}\n"
+    print_msg "\n${BOLD}${CYAN}════════════════════════════════════════════════════${RESET}"
+    print_msg "${BOLD}${CYAN}  📊 ${MSG_SUMMARY}${RESET}"
+    print_msg "${BOLD}${CYAN}════════════════════════════════════════════════════${RESET}\n"
 
     if [ "$DELETED_COUNT" -gt 0 ]; then
         print_msg "${GREEN}${MSG_REMOVED}${RESET}"

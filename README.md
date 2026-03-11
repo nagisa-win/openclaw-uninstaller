@@ -3,7 +3,8 @@
 <div align="center">
     <img src="banner.jpg" alt="OpenClaw Uninstaller Banner" width="600"/>
     <br/>
-    <strong>跨平台 OpenClaw 完全卸载工具</strong>
+    <h2>跨平台 OpenClaw 完全卸载工具</h2>
+    <br/>
 </div>
 
 <p align="center">
