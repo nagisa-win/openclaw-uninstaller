@@ -48,13 +48,12 @@ jobs:
               id: bump_version
               run: |
                   BUMP_TYPE="${{ github.event.inputs.version || 'patch' }}"
+                  CURRENT_VERSION=$(node -p "require('./package.json').version")
 
-                  # Check if it's a specific version or bump type
-                  if [[ "$BUMP_TYPE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                      # Specific version provided
-                      npm version "$BUMP_TYPE" --no-git-tag-version
+                  # 指定版本与当前一致时跳过 bump：npm version 会以 "Version not changed" 退出 1
+                  if [[ "$BUMP_TYPE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] && [ "$BUMP_TYPE" = "$CURRENT_VERSION" ]; then
+                      echo "version $BUMP_TYPE already current, skip bump"
                   else
-                      # Bump type (major/minor/patch)
                       npm version "$BUMP_TYPE" --no-git-tag-version
                   fi
 
