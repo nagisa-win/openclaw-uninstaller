@@ -5,6 +5,10 @@ on:
         branches:
             - master
             - main
+        # 只改 CI 配置或文档时不发版，避免无意义的 npm 版本
+        paths-ignore:
+            - '.github/workflows/**'
+            - '**.md'
     workflow_dispatch:
         inputs:
             version:
@@ -65,11 +69,20 @@ jobs:
 
             - name: Create Git Tag
               run: |
-                  git tag -a "v${{ steps.bump_version.outputs.VERSION }}" -m "Release v${{ steps.bump_version.outputs.VERSION }}"
-                  git push origin "v${{ steps.bump_version.outputs.VERSION }}"
+                  TAG="v${{ steps.bump_version.outputs.VERSION }}"
+                  # 标签可能已存在（重跑或历史改写后），用 -f 覆盖，避免 git tag 以 128 退出
+                  git tag -fa "$TAG" -m "Release $TAG"
+                  git push origin "refs/tags/$TAG" --force
 
             - name: Publish to npm
-              run: npm publish --provenance --access public
+              run: |
+                  VERSION="${{ steps.bump_version.outputs.VERSION }}"
+                  # 已发布过的版本直接跳过，避免重跑时 npm 返回 403
+                  if npm view "@steven-y/openclaw-uninstaller@$VERSION" version >/dev/null 2>&1; then
+                      echo "v$VERSION already on npm, skip publish"
+                  else
+                      npm publish --provenance --access public
+                  fi
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
 
